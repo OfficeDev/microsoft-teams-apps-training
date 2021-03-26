@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "target": "es6",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ]
+    },
+    "exclude": [
+        "output",
+        "assets",
+        "node_modules"
+    ],
+    "include": [
+        "./src/**/*.*"
+    ]
+}

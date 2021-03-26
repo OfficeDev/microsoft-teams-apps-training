@@ -1,0 +1,45 @@
+{
+    "name": "training",
+    "description": "Training",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "webpack --env.mode=prod --env.watch=false",
+        "start": "webpack --env.mode=dev --env.watch=true",
+        "zip": "cd ./output && bestzip ./ActionPackage.zip *",
+        "deploy": "npm run build && npm run zip && upload-action-package -z ./output/ActionPackage.zip -t ./output/ --ld ./output/ --lp training",
+        "deploy-debug": "npm run build && npm run zip && upload-action-package -z ./output/ActionPackage.zip -t ./output/ -l debug --ld ./output/ --lp training",
+        "update-teams-app": "npm run build && npm run zip && upload-action-package -z ./output/ActionPackage.zip --ld ./output/ --lp training",
+        "inner-loop": "create-inner-loop -p <packageId> -d ./output",
+        "lint": "tslint -c tslint.json -p tsconfig.json --fix",
+        "eslint": "eslint **/*.js -c .eslintrc.js --fix"
+    },
+    "dependencies": {
+        "@microsoft/m365-action-sdk": "https://static.actions.office365.com/sdk/v1.0.8/microsoft-m365-action-sdk.tgz",
+        "babel-polyfill": "6.26.0",
+        "bootstrap": "4.5.0",
+        "bootstrap-datepicker": "1.4.1",
+        "bootstrap-datetime-picker": "2.4.4",
+        "clean-webpack-plugin": "3.0.0",
+        "ekko-lightbox": "5.3.0",
+        "html2canvas": "1.0.0-rc.5",
+        "jquery": "3.5.1",
+        "popper.js": "1.16.1",
+        "uuid": "8.1.0"
+    },
+    "devDependencies": {
+        "@types/jquery": "3.5.5",
+        "action-package-deploy": "1.0.22",
+        "bestzip": "2.1.7",
+        "clean-webpack-plugin": "3.0.0",
+        "copy-webpack-plugin": "6.1.0",
+        "css-loader": "2.1.1",
+        "eslint": "7.17.0",
+        "file-loader": "6.2.0",
+        "html-webpack-plugin": "3.2.0",
+        "style-loader": "0.21.0",
+        "tslint-microsoft-contrib": "6.2.0",
+        "typescript": "3.5.3",
+        "webpack": "4.37.0",
+        "webpack-cli": "3.3.12"
+    }
+}

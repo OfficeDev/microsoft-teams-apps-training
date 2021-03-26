@@ -1,0 +1,22 @@
+{
+    "schemaVersion": 1,
+    "properties": {
+        "canAddMore": false,
+        "values": [
+            {
+                "name": "Locale",
+                "valueType": "Text",
+                "isOptional": true
+            }
+        ]
+    },
+    "dataTables": {
+        "canAddMore": false,
+        "values": [{
+            "name": "TrainingDataTable",
+            "dataColumns": {
+                "canAddMore": true
+            }
+        }]
+    }
+}

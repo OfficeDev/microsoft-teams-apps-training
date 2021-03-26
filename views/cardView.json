@@ -1,0 +1,104 @@
+{
+    "schemaVersion": 1,
+    "view": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.0",
+        "body": [{
+                "id": "Title",
+                "type": "TextBlock",
+                "text": "${action.displayName}",
+                "size": "large",
+                "maxLines": 3,
+                "wrap": true,
+                "weight": "bolder",
+                "spacing": "small"
+            },
+            {
+                "id": "Expiry",
+                "type": "TextBlock",
+                "text": "${if(equals(action.status, 'Active'), formatString(strings.due_by_date, ('' + dateString(action.expiryTime, 'SHORT') + ' ' + timeString(action.expiryTime))),strings.training_expired)}",
+                "color": "${if(equals(action.status, 'Active'), 'default','attention')}",
+                "size": "small",
+                "wrap": true
+            },
+            {
+                "id": "Questions",
+                "type": "Container",
+                "style": "emphasis",
+                "items": [{
+                    "type": "TextBlock",
+                    "text": "${strings.total} ${count(action.dataTables[0].dataColumns)} ${strings.trainingItems}",
+                    "size": "medium",
+                    "wrap": true,
+                    "spacing": "medium"
+                }]
+            },
+            {
+                "id": "NoResponder",
+                "type": "TextBlock",
+                "$when": "${equals(summary.rowCreatorCount, 0)}",
+                "text": "${strings.be_the_first_one_to_respond}",
+                "size": "small",
+                "weight": "bolder",
+                "maxLines": 2,
+                "wrap": true,
+                "spacing": "small"
+            }
+        ],
+        "actions": [{
+                "id": "RespondButton",
+                "$when": "${equals(action.status, 'Active')}",
+                "title": "${strings.start}",
+                "command": "LaunchActionPackageView",
+                "parameters": {
+                    "viewName": "UpdateView"
+                }
+            },
+            {
+                "id": "ResultButton",
+                "title": "${strings.viewResult}",
+                "command": "LaunchActionPackageView",
+                "parameters": {
+                    "viewName": "DetailView"
+                }
+            }
+        ]
+    },
+    "data": {
+        "strings": {
+            "command": "GetLocalizedStrings"
+        },
+        "action": {
+            "command": "GetAction"
+        },
+        "summary": {
+            "command": "GetActionDataRowsSummary",
+            "parameters": {
+                "addDefaultAggregates": true
+            }
+        },
+        "creator": {
+            "command": "GetSubscriptionMembers",
+            "parameters": {
+                "memberIds": [
+                    "$ActionCreator"
+                ]
+            }
+        },
+        "datarow": {
+            "command": "GetActionDataRows",
+            "parameters": {
+                "pageSize": 3
+            }
+        },
+        "responders": {
+            "command": "GetSubscriptionMembers",
+            "parameters": {
+                "memberIds": [
+                    "$ActionDataRowCreators"
+                ]
+            }
+        }
+    }
+}
