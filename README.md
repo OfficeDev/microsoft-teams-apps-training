@@ -47,17 +47,17 @@ what the app does and how it works.
 
 When you're ready to try out Training, or to use it in your own
 organization, follow the steps in the [Deployment
-guide](https://github.com/OfficeDev/microsoft-teams-apps-training/wiki/Deployment-guide.md).
+guide](https://github.com/OfficeDev/microsoft-teams-apps-training/wiki/Deployment-guide).
 
 ## Feedback 
 
 Thoughts? Questions? Ideas? Share them with us on [Teams UserVoice](https://microsoftteams.uservoice.com/forums/555103-public)!
 
-Please report bugs and other code issues [here](https://github.com/OfficeDev/Microsoft-Teams-Training-app/issues/new).
+Please report bugs and other code issues [here](https://github.com/OfficeDev/microsoft-teams-apps-training/issues/new).
 ## Legal Notice
 
 This app template is provided under the [MIT
-License](https://github.com/OfficeDev/microsoft-teams-apps-survey/blob/main/LICENSE) terms.
+License](https://github.com/OfficeDev/microsoft-teams-apps-training/blob/main/LICENSE) terms.
 In addition to these terms, by using this app template you agree to the
 following:
 
