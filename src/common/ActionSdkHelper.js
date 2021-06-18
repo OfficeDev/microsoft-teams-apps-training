@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 import * as actionSDK from "@microsoft/m365-action-sdk";
+import { Constants } from "./utils/Constants";
 
 export class Localizer {
     /**
@@ -77,11 +78,47 @@ export class ActionHelper {
     }
 
     /**
-     * Method to get action data row
+     * Method to get action data row for a creator
      * @param actionId string identifier
      */
-    static requestDataRows(actionId) {
-        return new actionSDK.GetActionDataRows.Request(actionId);
+    static requestDataRows(actionId, creatorId = "self") {
+        return new actionSDK.GetActionDataRows.Request(actionId, creatorId);
+    }
+
+    /**
+     * Method to get all action data rows
+     * @param actionId string identifier
+     */
+    static async getAllDataRows(actionId) {
+        let dataRows = [];
+        let continuationToken = null;
+        while (true) {
+            let dataRowsResponse = await this.executeApi(new actionSDK.GetActionDataRows.Request(actionId, null, continuationToken, Constants.getPageSizeForFetchingDataRows()));
+            dataRows = [...dataRows, ...dataRowsResponse.dataRows];
+            if (!dataRowsResponse.continuationToken || dataRowsResponse.continuationToken == "") {
+                break;
+            }
+            continuationToken = dataRowsResponse.continuationToken;
+        }
+        return dataRows;
+    }
+
+    /**
+     * Method to get all subscription members
+     * @param actionId string identifier
+     */
+    static async getAllSubscriptionMembers(subscription) {
+        let members = [];
+        let continuationToken = null;
+        while (true) {
+            let membersResponse = await this.executeApi(new actionSDK.GetSubscriptionMembers.Request(subscription, null /* all members */, continuationToken, Constants.getPageSizeForFetchingSubscriptionMembers()));
+            members = [...members, ...membersResponse.members];
+            if (!membersResponse.continuationToken || membersResponse.continuationToken == "") {
+                break;
+            }
+            continuationToken = membersResponse.continuationToken;
+        }
+        return members;
     }
 
     /**
@@ -106,7 +143,7 @@ export class ActionHelper {
      * @param attachment objet identifier
      */
     static requestAttachmentUpload(attachment) {
-        return new actionSDK.UploadAttachment.Request(attachment, function(status) {
+        return new actionSDK.UploadAttachment.Request(attachment, function (status) {
             console.log("Status: " + JSON.stringify(status));
         });
     }
@@ -116,7 +153,7 @@ export class ActionHelper {
      * @param attachment objet identifier
      */
     static requestAttachmentUploadDraft(attachment) {
-        return new actionSDK.UploadAttachmentDraft.Request(attachment, null, function(status) {
+        return new actionSDK.UploadAttachmentDraft.Request(attachment, null, function (status) {
             console.log("Status: " + JSON.stringify(status));
         });
     }
@@ -174,7 +211,7 @@ export class ActionHelper {
      */
     static setAttachmentPreview(request, questionName, filesAmount, $imgThumbnail, $col3, type) {
         actionSDK.executeApi(request)
-            .then(function(response) {
+            .then(function (response) {
                 if (type == "photo") {
                     $imgThumbnail.append(`<img class="image-sec" id="${questionName}" src="${response.attachmentInfo.downloadUrl}"></img>`);
                     if (filesAmount > 1) {
@@ -192,7 +229,7 @@ export class ActionHelper {
                     $col3.append($imgThumbnail);
                 }
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error("AttachmentAction - Error: " + JSON.stringify(error));
             });
     }
@@ -265,7 +302,7 @@ export class ActionHelper {
     static async downloadCSV(actionId, fileName) {
         let request = new actionSDK.DownloadActionDataRowsResult.Request(actionId, fileName);
         try {
-            let response = actionSDK.executeApi(request);
+            let response = await actionSDK.executeApi(request);
             console.info(`downloadCSV success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
             return { success: true };
         } catch (error) {
@@ -286,10 +323,10 @@ export class ActionHelper {
 
             actionSDK
                 .executeApi(closeViewRequest)
-                .then(function(batchResponse) {
+                .then(function (batchResponse) {
                     console.info("BatchResponse: " + JSON.stringify(batchResponse));
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error("Error3: " + JSON.stringify(error));
                 });
 
@@ -310,10 +347,10 @@ export class ActionHelper {
             let closeViewRequest = new actionSDK.CloseView.Request();
             actionSDK
                 .executeApi(closeViewRequest)
-                .then(function(batchResponse) {
+                .then(function (batchResponse) {
                     console.info("BatchResponse: " + JSON.stringify(batchResponse));
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error("Error3: " + JSON.stringify(error));
                 });
             return { success: true, updateSuccess: response.success };
@@ -340,10 +377,10 @@ export class ActionHelper {
             let closeViewRequest = new actionSDK.CloseView.Request();
             actionSDK
                 .executeApi(closeViewRequest)
-                .then(function(batchResponse) {
+                .then(function (batchResponse) {
                     console.info("BatchResponse: " + JSON.stringify(batchResponse));
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error("Error3: " + JSON.stringify(error));
                 });
             response = { success: true, updateSuccess: response.success };
@@ -355,10 +392,10 @@ export class ActionHelper {
                 let closeViewRequest = new actionSDK.CloseView.Request();
                 actionSDK
                     .executeApi(closeViewRequest)
-                    .then(function(batchResponse) {
+                    .then(function (batchResponse) {
                         console.info("BatchResponse: " + JSON.stringify(batchResponse));
                     })
-                    .catch(function(error) {
+                    .catch(function (error) {
                         console.error("Error3: " + JSON.stringify(error));
                     });
             } else {

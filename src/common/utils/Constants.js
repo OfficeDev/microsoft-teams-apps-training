@@ -576,4 +576,11 @@ export class Constants {
             </div>`;
     }
 
+    static getPageSizeForFetchingDataRows() {
+        return 100;
+    }
+
+    static getPageSizeForFetchingSubscriptionMembers() {
+        return 999;
+    }
 }
