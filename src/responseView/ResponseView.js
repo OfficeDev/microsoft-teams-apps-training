@@ -726,7 +726,9 @@ function submitForm() {
         .executeApi(ActionHelper.getContextRequest())
         .then(function(response) {
             console.info("GetContext - Response: " + JSON.stringify(response));
-            addDataRows(response.context.actionId);
+            if (!$("div.section-2").find("div.card-box:visible").find(".choice-required-err").hasClass("choice-required-err")) {
+                addDataRows(response.context.actionId);
+            }
         })
         .catch(function(error) {
             console.error("GetContext - Error: " + JSON.stringify(error));
