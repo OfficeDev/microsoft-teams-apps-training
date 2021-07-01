@@ -1132,7 +1132,7 @@ $(document).on("click", "#next", function() {
         $(".error-msg").remove();
     }
     /* Validate */
-    if ($("div.card-box:visible").find(".training-type").text() == "Question") {
+    if ($("div.card-box:visible").find(".training-type").text() == questionKey) {
         /* Question Validations */
         let answerKeys = Utils.isJson(actionInstance.customProperties[Constants.getCorrectAnswerIndex()].value) ? JSON.parse(actionInstance.customProperties[Constants.getCorrectAnswerIndex()].value) : actionInstance.customProperties[Constants.getCorrectAnswerIndex()].value;
         let correctAnsArr = [];
@@ -1226,7 +1226,7 @@ $(document).on("click", "#next", function() {
                             $("div.section-2 > .container:first > div.card-box:nth-child(" + (pagination + 1) + ")").show();
                             setTimeout(
                                 function() {
-                                    if ($("div.card-box:visible").find(".training-type").text() == "Question") {
+                                    if ($("div.card-box:visible").find(".training-type").text() == questionKey) {
                                         if (actionInstance.customProperties[Constants.getisShowAnswerEveryQuestionIndex()].value == "Yes" && $("div.card-box:visible").find("input").parent("label").attr("disabled") !== "disabled") {
                                             $("#next").html(`Check ${Constants.getNextCaratIcon()}`).attr("id", "check");
                                         }
@@ -1251,7 +1251,7 @@ $(document).on("click", "#next", function() {
                             $("div.section-2 > .container:first > div.card-box:nth-child(" + (pagination + 1) + ")").show();
                             setTimeout(
                                 function() {
-                                    if ($("div.card-box:visible").find(".training-type").text() == "Question") {
+                                    if ($("div.card-box:visible").find(".training-type").text() == questionKey) {
                                         if (actionInstance.customProperties[Constants.getisShowAnswerEveryQuestionIndex()].value == "Yes" && $("div.card-box:visible").find("input").parent("label").attr("disabled") !== "disabled") {
                                             $("#next").html(`Check ${Constants.getNextCaratIcon()}`).attr("id", "check");
                                         }
@@ -1279,7 +1279,7 @@ $(document).on("click", "#next", function() {
                         $("div.section-2 > .container:first > div.card-box:nth-child(" + (pagination + 1) + ")").show();
                         setTimeout(
                             function() {
-                                if ($("div.card-box:visible").find(".training-type").text() == "Question") {
+                                if ($("div.card-box:visible").find(".training-type").text() == questionKey) {
                                     if (actionInstance.customProperties[Constants.getisShowAnswerEveryQuestionIndex()].value == "Yes" && $("div.card-box:visible").find("input").parent("label").attr("disabled") !== "disabled") {
                                         $("#next").html(`Check ${Constants.getNextCaratIcon()}`).attr("id", "check");
                                     }
@@ -1324,7 +1324,7 @@ $(document).on("click", "#next", function() {
                 $("div.section-2 > .container:first > div.card-box:nth-child(" + (pagination + 1) + ")").show();
                 setTimeout(
                     function() {
-                        if ($("div.card-box:visible").find(".training-type").text() == "Question") {
+                        if ($("div.card-box:visible").find(".training-type").text() == questionKey) {
                             if (actionInstance.customProperties[Constants.getisShowAnswerEveryQuestionIndex()].value == "Yes" && $("div.card-box:visible").find("input").parent("label").attr("disabled") !== "disabled") {
                                 $("#next").html(`Check ${Constants.getNextCaratIcon()}`).attr("id", "check");
                             }
@@ -1386,7 +1386,7 @@ $(document).on("click", "#back", function() {
         $("div.section-2 > .container:first > div.card-box:nth-child(" + pagination + ")").show();
         setTimeout(
             function() {
-                if ($("div.card-box:visible").find(".training-type").text() == "Question") {
+                if ($("div.card-box:visible").find(".training-type").text() == questionKey) {
                     if (actionInstance.customProperties[Constants.getisShowAnswerEveryQuestionIndex()].value == "Yes" && $("div.card-box:visible").find("input").parent("label").attr("disabled") !== "disabled") {
                         $("#next").html(`Check ${Constants.getNextCaratIcon()}`).attr("id", "check");
                     }
