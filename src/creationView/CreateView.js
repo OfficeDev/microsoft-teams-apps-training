@@ -2423,7 +2423,7 @@ $(document).on("click", ".training-clear", function() {
     $("#training-img-preview").attr("src", "");
     $("#training-title-image").parents("div.quiz-updated-img").hide();
     $("#training-attachment-id").remove();
-    $("div#section-0 #cover-image").val("");
+    $("div.training-card-section #cover-image").val("");
     $("div#section-0 .img-thumbnail").hide();
     $("div#section-0 .img-thumbnail").parents(".rows").addClass("col-12").removeClass("col-9");
 });
